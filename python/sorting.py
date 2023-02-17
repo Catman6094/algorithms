@@ -1,13 +1,5 @@
 # INSERTION SORT
 
-class _inf:
-    def __gt__(self, other):
-        return True
-    
-    def __lt__(self, other):
-        return False
-
-
 def insertion_sort(A):
     for i in range(1, len(A)):
         v = A[i]
@@ -25,19 +17,29 @@ def _merge(A, left, mid, right):
     # Create arrays with infinite sentinel values
     L = A[left:mid+1]
     R = A[mid+1:right+1]
-    L.append(_inf())
-    R.append(_inf())
     
     li = 0
     ri = 0
-        
-    for i in range(left, right + 1):
-        if L[li] > R[ri]:
-            A[i] = R[ri]
-            ri += 1
-        else:
+    i = left
+    while li < len(L) and ri < len(R):
+        if L[li] < R[ri]:
             A[i] = L[li]
             li += 1
+        else:
+            A[i] = R[ri]
+            ri += 1
+        i += 1
+    
+    if li == len(L):
+        while ri < len(R):
+            A[i] = R[ri]
+            ri += 1
+            i += 1
+    else:
+        while li < len(L):
+            A[i] = L[li]
+            li += 1
+            i += 1
 
     
  

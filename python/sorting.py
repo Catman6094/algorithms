@@ -21,6 +21,8 @@ def _merge(A, left, mid, right):
     li = 0
     ri = 0
     i = left
+    
+    # Merge until `li` or `ri` reaches the end
     while li < len(L) and ri < len(R):
         if L[li] < R[ri]:
             A[i] = L[li]
@@ -30,6 +32,7 @@ def _merge(A, left, mid, right):
             ri += 1
         i += 1
     
+    # Insert the rest
     if li == len(L):
         while ri < len(R):
             A[i] = R[ri]
@@ -41,10 +44,9 @@ def _merge(A, left, mid, right):
             li += 1
             i += 1
 
-    
- 
+
 def merge_sort(A, left=None, right=None):
-    # Sorts in [left:right+1]
+    # Sorts `A` in `[left:right+1]`
     
     if left is None: left = 0
     if right is None: right = len(A) - 1
@@ -56,6 +58,14 @@ def merge_sort(A, left=None, right=None):
         _merge(A, left, mid, right)
 
 
+# BUBBLE SORT
+
+def bubble_sort(A):
+    for i in range(len(A) - 1):
+        for j in range(len(A) - 1, i, -1):
+            if A[j] < A[j-1]:
+                A[j], A[j-1] = A[j-1], A[j]
+
 if __name__ == "__main__":
     ns = [3, 2, 6, 5, 1, 4]
     insertion_sort(ns)
@@ -66,5 +76,5 @@ if __name__ == "__main__":
     assert ns == [1, 2, 3, 4, 5, 6]
     
     ns = [3, 2, 6, 5, 1, 4]
-    merge_sort(ns, 1, 4)
-    assert ns == [3, 1, 2, 5, 6, 4]
+    bubble_sort(ns)
+    assert ns == [1, 2, 3, 4, 5, 6]
